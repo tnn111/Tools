@@ -12,18 +12,15 @@ try:
     arg_parser.add_argument("score", type = int, help = "score threshold")
     arguments = arg_parser.parse_args()
 
-    directory = os.path.basename(os.path.realpath(arguments.directory))
+    directory = os.path.realpath(arguments.directory)
     pattern = arguments.pattern
     score = arguments.score
 
     print(directory, pattern, score)
 
-    directory = os.path.basename(os.getcwd())
-
-    os.chdir(directory)
-
-    gff_filename = directory + '_Rfam.gff'
-    fasta_filename = directory + '_contigs.fasta'
+    base = os.path.basename(directory)
+    gff_filename = directory + '/' + base + '_Rfam.gff'
+    fasta_filename = directory + '/' + base + '_contigs.fasta'
 
     response = subprocess.run(f"grep {pattern} " + gff_filename + "|" +
                               f"awk '{{if($6 >= {score}) print}}'",
@@ -42,6 +39,5 @@ try:
                             {line[0]}:{line[3]}-{line[4]} | seqtk seq -r',
                             shell = True, env = dict(os.environ), encoding='utf-8')
 
-    os.chdir("..")
 except KeyboardInterrupt:
     pass
