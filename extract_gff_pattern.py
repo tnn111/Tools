@@ -42,5 +42,5 @@ if __name__ == '__main__':
 
         extract_gff_pattern(arguments.directory, arguments.pattern, arguments.score)
 
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, BrokenPipeError):
         pass
