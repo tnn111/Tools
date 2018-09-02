@@ -9,8 +9,6 @@ def extract_gff_pattern(directory, pattern, score):
 
     directory = os.path.realpath(directory)
 
-    print(directory, pattern, score)
-
     base = os.path.basename(directory)
     gff_filename = directory + '/' + base + '_Rfam.gff'
     fasta_filename = directory + '/' + base + '_contigs.fasta'
